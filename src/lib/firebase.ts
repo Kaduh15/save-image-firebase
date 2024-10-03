@@ -1,13 +1,19 @@
 import { initializeApp } from 'firebase/app'
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+} from 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDhqKPgjemfAXfEUXUa6Q_ShsEqQVvaCgk',
-  authDomain: 'save-image-5073a.firebaseapp.com',
-  projectId: 'save-image-5073a',
-  storageBucket: 'save-image-5073a.appspot.com',
-  messagingSenderId: '89398883415',
-  appId: '1:89398883415:web:c4dce78cb2b2c083f11f12',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
 const app = initializeApp(firebaseConfig)
@@ -26,11 +32,11 @@ export async function uploadImage(file: File): Promise<string> {
 }
 
 export async function getImagesPath(path = 'images/') {
-  const storageRef = ref(storage,path)
+  const storageRef = ref(storage, path)
 
   const list = await listAll(storageRef)
 
-  const urls =await  Promise.all(list.items.map((item) => getDownloadURL(item)))
+  const urls = await Promise.all(list.items.map(item => getDownloadURL(item)))
 
   return urls
 }
