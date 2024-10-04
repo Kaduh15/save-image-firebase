@@ -1,19 +1,18 @@
 'use client'
 import { uploadImage } from '@/lib/firebase'
 import Link from 'next/link'
-import { useState, type FormEvent } from 'react'
+import { type FormEvent, useState } from 'react'
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState('')
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
     const image = new FormData(event.currentTarget).get('image')
 
     if (!image || !(image instanceof File)) return
-
     const url = await uploadImage(image)
+
     setImageUrl(url)
   }
 
@@ -30,11 +29,7 @@ export default function Home() {
         </button>
 
         {imageUrl && (
-          <img
-            className='size-16 rounded-md'
-            src={imageUrl}
-            alt="uploaded"
-          />
+          <img className="size-16 rounded-md" src={imageUrl} alt="uploaded" />
         )}
       </form>
 

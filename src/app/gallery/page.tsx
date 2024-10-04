@@ -19,7 +19,7 @@ export default async function GalleryPage() {
             key={image}
             src={image}
             className="size-28 rounded-md bg-zinc-300"
-            alt='uploaded'
+            alt="uploaded"
           />
         ))}
       </div>
